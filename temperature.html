@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature</title>
+</head>
+<body>
+<label>Độ C</label>
+<input id="inputC" type="number">
+<label>Chuyển sang độ </label>
+<select id="to">
+    <option value="F">F</option>
+    <option value="K">K</option>
+</select>
+<button onclick="run()">Đổi</button>
+Kết quả: <span id="result"></span>
+<script>
+    function run() {
+        var Temperature = function (c) {
+            this.c = c;
+            this.getC = function () {
+                return this.c;
+            }
+            this.setC = function (c) {
+                this.c = c;
+            }
+            this.getF = function () {
+                return (c * 1.8) + 32;
+            }
+            this.getK = function () {
+                return c + 273.15;
+            }
+        }
+
+        function message(mess) {
+            document.getElementById('result').innerHTML = mess;
+        }
+
+        var inputC = Number(document.getElementById('inputC').value);
+        var to = document.getElementById('to').value;
+        var temperature = new Temperature(inputC);
+        if (temperature.getC() <= -273.15) {
+            message('giá trị độ C nhập vào không hợp lệ (không nhập dưới -273.15)');
+        } else if (to == 'F') {
+            message(temperature.getF() + ' độ F');
+        } else if (to == 'K') {
+            message(temperature.getK() + ' độ K');
+        }
+    }
+</script>
+</body>
+</html>
